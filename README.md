@@ -1,4 +1,4 @@
-# acacia
+# Acacia
 SolidJS accessible primitive component library
 
 ## Inspiration
