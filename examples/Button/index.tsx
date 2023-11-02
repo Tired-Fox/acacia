@@ -1,5 +1,6 @@
 import { render } from 'solid-js/web';
 import { Button, PressEvent } from '../../src/Button';
+import { createSignal } from 'solid-js';
 
 const alertAndLog = (e: PressEvent) => {
     // alert(`Button: ${e.target}`);
@@ -7,6 +8,7 @@ const alertAndLog = (e: PressEvent) => {
 }
 
 const App = () => {
+    const [isPressed, setPressed] = createSignal(false);
     return <main style={{
         display: 'flex',
         'flex-direction': 'column',
@@ -17,12 +19,16 @@ const App = () => {
     }}>
         <p>Open the Console to see the button outputs</p>
         {/* Normal button */}
-        <Button onPress={alertAndLog}>
+        <Button onPress={alertAndLog} onPressStart={() => console.warn('start')} onPressEnd={() => console.warn('end')}>
             This is a Button
         </Button>
 
         {/* Toggle button */}
-        <Button onPress={(e) => console.log(e.pressed ? 'On':'Off')} pressed={false}>
+        <Button
+          onPress={() => console.log(isPressed() ? 'On':'Off')} 
+          onPressChange={setPressed}
+          pressed={isPressed} 
+        >
             This is a toggle button
         </Button>
 

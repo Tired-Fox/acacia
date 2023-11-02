@@ -16,7 +16,7 @@ have more general re-usable names like `useOnPress` and `useOnHover`.
 
 ## TODO
 
-- [x] Button
+- [ ] Button
 - [ ] Checkbox
 - [ ] Switch
 - [ ] Link

@@ -1,87 +1,93 @@
-import { splitProps, JSX, Component } from "solid-js";
+import { splitProps, mergeProps, JSX, Component, Accessor } from "solid-js";
 import { Dynamic } from 'solid-js/web';
-import { keyboardPressed, PressEvent, useOnPress } from './OnPress';
+import { PressEvent, useOnPress } from './Press';
+import type { Handlers } from './Press';
 
 // Pull in all props for a given tage type or default to button props.
-export type ButtonProps = JSX.HTMLElementTags['button'] & {
+export type ButtonProps = Omit<JSX.HTMLElementTags['button'], 'onClick'> & {
     as?: keyof JSX.HTMLElementTags,
-    pressed?: boolean,
-    onPress: (event: PressEvent) => void
+    pressed?: Accessor<boolean>,
+    onPress?: (e: PressEvent) => void,
+    onPressStart?: (e: PressEvent) => void,
+    onPressEnd?: (e: PressEvent) => void,
+    onPressUp?: (e: PressEvent) => void,
+    onPressChange?: (isSelected: boolean) => void,
     children?: JSX.Element;
 };
 
 /**
  * Accessible `button` component
+ * 
+ * # TODO:
+ * - [ ] ClickStart
+ * - [ ] ClickEnd
+ * - [ ] Hover
+ * - [ ] ClickUp
+ * - [ ] ClickChange
  */
 export const Button: Component<ButtonProps> = (props) => {
+    let [data, handlers, rest] = createButtonProps(props);
+    let eventHandlers = useOnPress(handlers, data.pressed, data.as !== 'button');
+    
     let buttonRef: HTMLElement|undefined = undefined;
-    let [{children, as, pressed, onPress}, rest] = createButtonProps(props);
-    let [isPressed, [onClick, onTouchEnd]] = useOnPress(onPress, pressed);
    
-    const keyboardHandler = (ke: KeyboardEvent) => {
-        if (onPress && ke.key === ' ' || ke.key === 'Enter') {
-            onPress(keyboardPressed(ke));
-        }           
-    }
 
-    if (pressed === undefined) {
+    if (data.pressed === undefined) {
         return (
-            as === 'button' 
-            ? <button ref={buttonRef} onClick={onClick} onTouchEnd={onTouchEnd} {...rest}>
-                {children}
+            data.as === 'button' 
+            ? <button ref={buttonRef} {...eventHandlers} {...rest}>
+                {data.children}
             </button>
             : <Dynamic 
-                ref={buttonRef} 
-                component={as} 
-                onClick={onClick} 
-                onTouchEnd={onTouchEnd} 
-                onKeyDown={keyboardHandler}
+                ref={buttonRef as any} 
+                component={data.as} 
+                {...eventHandlers}
                 {...rest}
             >
-                {children}
+                {data.children}
             </Dynamic>
         );
     } else {
         return (
-            as === 'button' 
+            data.as === 'button' 
             ? <button
                 ref={buttonRef}
-                onClick={onClick}
-                onTouchEnd={onTouchEnd}
-                aria-pressed={isPressed()}
+                aria-pressed={data.pressed()}
+                {...eventHandlers}
                 {...rest}
             >
-                {children}
+                {data.children}
             </button>
             : <Dynamic
-                ref={buttonRef}
-                component={as}
-                onClick={onClick}
-                onTouchEnd={onTouchEnd}
-                aria-pressed={isPressed()}
-                onKeyDown={keyboardHandler}
+                ref={buttonRef as any}
+                component={data.as}
+                aria-pressed={data.pressed()}
+                {...eventHandlers}
                 {...rest}
             >
-                {children}
+                {data.children}
             </Dynamic>
         );
     }
 }
 
-type Extract = 'children'|'as'|'pressed'|'onPress';
 const CONTAINS: RegExp = /^.*[ -~]+.*$/;
+type DATA = typeof Data[number];
+
+const Data = ['children', 'as', 'pressed'] as const;
+const HANDLERS = ['onPress', 'onPressStart', 'onPressEnd', 'onPressUp', 'onPressChange'] as const;
 
 /**
  * Extract and setup button props
  */
 export const createButtonProps = (props: ButtonProps): 
-    [Pick<ButtonProps, Extract>, Omit<ButtonProps, Extract>] => {
+    [Pick<ButtonProps, DATA>, Handlers, Omit<ButtonProps, DATA | keyof Handlers>] => {
 
     if (props.disabled) {
         props['aria-disabled'] = 'true';
     }
 
-    let [extracted, rest] = splitProps(props, ["children", "as", "pressed", "onPress"]);
+    let [extracted, handlers, rest] = splitProps(props, Data, HANDLERS);
     if (extracted.as && extracted.as !== 'button') {
         rest.role = 'button';
         if (rest.tabIndex === undefined) {
@@ -100,5 +106,13 @@ export const createButtonProps = (props: ButtonProps):
         extracted.as = 'button';
     }
 
-    return [extracted, rest];
+    handlers = mergeProps({
+        onPress: () => {},
+        onPressStart: () => {},
+        onPressEnd: () => {},
+        onPressUp: () => {},
+        onPressChange: () => {}
+    }, handlers);
+
+    return [extracted, handlers as Handlers, rest];
 }
