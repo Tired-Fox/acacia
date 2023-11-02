@@ -12,27 +12,36 @@ the method will generate attributes for each sub component.
 
 Use methods are split into categories: attributes, interactions, and state.
 These will have the form of `useNameProps`, `useNameState`, and then the interactions
-have more general re-usable names like `usePress` and `useHover`.
+have more general re-usable names like `useOnPress` and `useOnHover`.
 
-```jsx
-use { useButton } from '@TiredFox/Acacia/Button';
+## TODO
 
-const Button = (prop: ButtonAria) => {
-    let buttonProps = useButton(props);
-    let {children} = buttonProps;
-
-    return <button {...buttonProps}>
-        {prop.children}
-    </button>
-}
-```
-
-```jsx
-import { AButton } from '@TiredFox/Acacia/Button';
-
-const Button = (props) => {
-    return <AButton as={<div></div>} onPress={() => alert('Handles mouse, touch, and keyboard input')}>
-        {props.children}
-    </AButton>
-}
-```
+- [x] Button
+- [ ] Checkbox
+- [ ] Switch
+- [ ] Link
+- [ ] Radio Group
+- [ ] Slider
+- [ ] Slider (Multi-Thumb)
+- [ ] Combo Box
+- [ ] List Box
+- [ ] Alert
+- [ ] Alert and message Dialog
+- [ ] Dialog(Modal)
+- [ ] Breadcrumb
+- [ ] Accordion
+- [ ] Disclosure
+- [ ] MenuBar + Menu
+- [ ] Menu button
+- [ ] Toolbar
+- [ ] Meter
+- [ ] Tooltip
+- [ ] Spin Button
+- [ ] Table
+- [ ] Grid (Interactive Tabular data and layout containers)
+- [ ] Tabs
+- [ ] Carousel
+- [ ] Window Splitter
+- [ ] Tree View
+- [ ] Tree Grid
+- [ ] Feed

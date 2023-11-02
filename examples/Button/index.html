@@ -5,9 +5,51 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + Acacia</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            height: 100vh;
+            height: 100dvh;
+            padding: 0;
+            margin: 0;
+        }
+        body>div {
+            height: 100%
+        }
+        main {
+            height: 100%;
+        }
+        :is(button,[role="button"]) {
+            border: 2px solid black;
+            border-radius: 1rem;
+            text-align: center;
+            background-color: rgb(210, 210, 210);
+            color: #000000;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 16px;
+            padding-inline: 1rem;
+            padding-block: .25rem;
+            box-sizing: border-box;
+            width: 50%;
+            max-width: 30rem;
+        }
+        :is(button,[role="button"]):is(:disabled, [aria-disabled]) {
+            opacity: 45%;
+        }
+        :is(button,[role="button"]):not([aria-disabled]):focus {
+            border-color: red;
+            outline: red;
+        }
+        [aria-pressed="true"] {
+            background-color: blue;
+            color: white;
+        }
+    </style>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="./index.jsx"></script>
+    <script type="module" src="./index.tsx"></script>
   </body>
 </html>

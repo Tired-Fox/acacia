@@ -5,9 +5,11 @@ specifiers:
   '@solid-primitives/props': ^3.1.8
   babel-preset-solid: ^1.8.4
   solid-js: ^1.8.4
+  typescript: ^5.2.2
 
 dependencies:
   '@solid-primitives/props': 3.1.8_solid-js@1.8.4
+  typescript: 5.2.2
 
 devDependencies:
   '@babel/core': 7.23.2
@@ -459,6 +461,12 @@ packages:
     resolution: {integrity: sha512-/OaKK0xYrs3DmxRYqL/yDc+FxFUVYhDlXMhRmv3z915w2HF1tnN1omB354j8VUGO/hbRzyD6Y3sA7v7GS/ceog==}
     engines: {node: '>=4'}
     dev: true
+
+  /typescript/5.2.2:
+    resolution: {integrity: sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+    dev: false
 
   /update-browserslist-db/1.0.13_browserslist@4.22.1:
     resolution: {integrity: sha512-xebP81SNcPuNpPP3uzeW1NYXxI3rxyJzF3pD6sH4jE7o/IX+WtSpwnVU+qIsDPyk0d3hmFQ7mjqc6AtV604hbg==}
