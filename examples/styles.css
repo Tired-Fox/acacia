@@ -1,0 +1,135 @@
+* {
+  box-sizing: border-box;
+}
+:root {
+    --acacia: 229, 208, 88;
+    --gray: 113, 113, 111;
+}
+body {
+  padding: 0;
+  margin: 0;
+}
+body > div {
+  height: 100%;
+}
+main {
+  height: 100%;
+}
+:is(button, [role="button"]) {
+  border: 2px solid rgb(var(--gray));
+  border-radius: 1rem;
+  text-align: center;
+  background-color: rgb(var(--acacia));
+  color: black;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 16px;
+  padding-inline: 1rem;
+  padding-block: 0.25rem;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 30rem;
+  margin-block: .25rem;
+}
+:is(button, [role="button"]):is(:disabled, [aria-disabled]) {
+  opacity: 45%;
+  background-color: rgba(var(--gray), .5);
+}
+:is(button, [role="button"]):not([aria-disabled]):active {
+  border-color: rgba(var(--gray), .25);
+  outline: red;
+}
+[aria-pressed="true"] {
+  background-color: rgba(var(--acacia), .65);
+}
+
+.acacia-checkbox {
+  --label-color: black;
+  --deselected-color: gray;
+  --deselected-color-pressed: rgb(128, 128, 128, .75);
+  --selected-color: rgb(var(--acacia));
+  --selected-color-pressed: rgb(var(--acacia), .75);
+  --checkmark-color: white;
+  --invalid-color: rgb(231, 105, 105);
+  display: flex;
+  align-items: center;
+  gap: 0.571rem;
+  font-size: 1.143rem;
+  color: var(--label-color);
+  width: fit-content;
+}
+.acacia-checkbox .checkbox {
+  width: 1.143rem;
+  height: 1.143rem;
+  border: 2px solid var(--deselected-color);
+  border-radius: 4px;
+  transition: all 200ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.acacia-checkbox svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: var(--checkmark-color);
+  color: var(--checkmark-color);
+  stroke-width: 3px;
+  stroke-dasharray: 22px;
+  stroke-dashoffset: 66; /* Animates svg */
+  transition: all 200ms;
+}
+
+.acacia-checkbox[data-checked] .checkbox,
+.acacia-checkbox[data-indeterminate] .checkbox {
+  border-color: var(--selected-color);
+  background: var(--selected-color);
+}
+.acacia-checkbox[data-checked][data-pressed] .checkbox,
+.acacia-checkbox[data-indeterminate][data-pressed] .checkbox {
+  border-color: var(--selected-color-pressed);
+  background: var(--selected-color-pressed);
+}
+.acacia-checkbox[data-checked] svg,
+.acacia-checkbox[data-indeterminate] svg {
+  stroke-dashoffset: 44;
+}
+
+.acacia-checkbox[data-invalid] .checkbox {
+  border-color: var(--invalid-color);
+}
+.acacia-checkbox[data-invalid][data-checked] .checkbox,
+.acacia-checkbox[data-invalid][data-indeterminate] .checkbox {
+  background: var(--invalid-color);
+}
+.acacia-checkbox[data-indeterminate] svg {
+  stroke: none;
+  fill: var(--checkmark-color);
+}
+/* 
+.acacia-checkbox[data-focus-visible] .checkbox {
+  box-shadow: 0 0 0 2px var(--spectrum-alias-background-color-default),
+    0 0 0 4px var(--selected-color);
+}
+.acacia-checkbox[data-disabled] {
+  opacity: 0.4;
+}
+@media (forced-colors: active) {
+  .acacia-checkbox {
+    forced-color-adjust: none;
+    --label-color: ButtonText;
+    --deselected-color: ButtonBorder;
+    --deselected-color-pressed: ButtonBorder;
+    --selected-color: Highlight;
+    --selected-color-pressed: Highlight;
+    --checkmark-color: HighlightText;
+    --invalid-color: LinkText;
+    --invalid-color-pressed: LinkText;
+    --spectrum-alias-background-color-default: Canvas;
+  }
+  .acacia-checkbox[data-disabled] {
+    opacity: 1;
+    --deselected-color: GrayText;
+    --selected-color: GrayText;
+    --label-color: GrayText;
+  }
+} */

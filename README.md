@@ -5,6 +5,10 @@ SolidJS accessible primitive component library
 - [wai-aria](https://www.w3.org/WAI/ARIA/apg/patterns/)
 - [solid-aria](https://github.com/solidjs-community/solid-aria)
 - [react-aria](https://react-spectrum.adobe.com/react-aria/)
+- 
+# Theme
+ Acacia: [color-name](https://www.color-name.com/acacia.color)
+ Medium Gray: [color-name](https://www.color-name.com/medium-gray.color)
 
 Provides a basic `use` method that generates accessibility and interaction attributes
 for the given component(s). If a component is made up of several sub components, then
@@ -16,7 +20,9 @@ have more general re-usable names like `useOnPress` and `useOnHover`.
 
 ## TODO
 
-- [ ] Button
+- [x] Button
+- [ ] FileTrigger???
+
 - [ ] Checkbox
 - [ ] Switch
 - [ ] Link
