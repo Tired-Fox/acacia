@@ -99,19 +99,19 @@ const touchPressed = (t: TouchEvent): PressEvent => {
   });
 };
 
-type Events = {
-  hooks: {isPressed: Accessor<boolean>, setPressed: Setter<boolean>};
-  events: {
+export type Interaction = {
     onClick: (m: MouseEvent) => void;
     onMouseDown: (m: MouseEvent) => void;
     onTouchStart: (t: TouchEvent) => void;
     onMouseUp: (m: MouseEvent) => void;
     onTouchEnd: (t: TouchEvent) => void;
     onKeyDown: (k: KeyboardEvent) => void;
-  };
-
-  state: () => { buttons: number[]; touches: number[] };
 };
+type Events = [
+    Interaction,
+    {isPressed: Accessor<boolean>, setPressed: Setter<boolean>},
+    () => { buttons: number[]; touches: number[] },
+];
 
 /*
     START: Event for start interaction
@@ -146,12 +146,7 @@ export type PressHandlers = Omit<
   { [K in (typeof PressHandlerKeys)[number]]?: (e: PressEvent) => void },
   "onPressChange"
 > & { onPressChange?: (isPressed: boolean) => void };
-export type PressProps = { pressed?: boolean };
-
-type RequiredPressHandlers = Omit<
-  { [P in keyof PressHandlers]-?: PressHandlers[P] },
-  "onPressChange"
-> & { onPressChange: (v: boolean) => void };
+export type RequiredPressHandlers = { [P in keyof PressHandlers]-?: PressHandlers[P] };
 
 export const useOnPress = (
   handlers: PressHandlers,
@@ -169,31 +164,39 @@ export const useOnPress = (
     touches: [],
   });
 
-  const defaultCall = (_e: PressEvent) => {};
-  let pressHandlers: RequiredPressHandlers = mergeProps(
-    {
-      onPress: defaultCall,
-      onPressStart: defaultCall,
-      onPressEnd: defaultCall,
-      onPressUp: defaultCall,
-      onPressChange: (_v: boolean) => {},
+  const contextHandlers = usePressContext();
+  let pressHandlers: RequiredPressHandlers = {
+    onPress: (e) => {
+        handlers.onPress?.(e);
+        contextHandlers?.onPress?.(e);
     },
-    handlers,
-    usePressContext()
-  );
+    onPressStart: (e) => {
+        handlers.onPressStart?.(e);
+        contextHandlers?.onPressStart?.(e);
+    },
+    onPressEnd: (e) => {
+        handlers.onPressEnd?.(e);
+        contextHandlers?.onPressEnd?.(e);
+    },
+    onPressUp: (e) => {
+        handlers.onPressUp?.(e);
+        contextHandlers?.onPressUp?.(e);
+    },
+    onPressChange: (_v: boolean) => {
+        handlers.onPressChange?.(_v);
+        contextHandlers?.onPressChange?.(_v);
+    },
+  };
 
   let changePressed = () => {
       if (options?.disabled !== true) {
         setPressed(!isPressed());
-        if (handlers.onPressChange) {
-            handlers.onPressChange(isPressed());
-        }
+        pressHandlers.onPressChange(isPressed());
     }
   };
 
-  return {
-    hooks: {isPressed, setPressed},
-    events: {
+  return [
+    {
       //! PRESS START
       onMouseDown: (me: MouseEvent) => {
         if (options?.disabled !== true) {
@@ -262,10 +265,11 @@ export const useOnPress = (
         }
       },
     },
-    state: () => {
+    {isPressed, setPressed},
+    () => {
       return pressState;
     },
-  };
+];
 };
 
 const PressContext = createContext<PressHandlers>();

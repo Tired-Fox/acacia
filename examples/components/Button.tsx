@@ -1,7 +1,8 @@
-import { Button } from "../../src/aria/Button";
-import type { PressEvent } from "../../src/interaction/onPress";
+import { Button } from "../../src/aria/button/Button";
+import type { PressEvent } from "../../src/interaction/usePress";
 import { For, createSignal } from "solid-js";
-import { FileSelect } from "../../src/aria/FileSelect";
+import { FileSelect } from "../../src/aria/button/FileSelect";
+import { ToggleButton } from "../../src/aria/button/ToggleButton";
 
 const alertAndLog = (e: PressEvent) => {
   // alert(`Button: ${e.target}`);
@@ -22,44 +23,37 @@ const fileListStyles: any = {
 };
 
 export const CButton = () => {
-  const [isPressed, setPressed] = createSignal(false);
+  const [isToggled, setToggled] = createSignal(false);
   const [files, setFiles] = createSignal<File[]|null>(null);
 
   return (
     <div style={{display: "flex", 'flex-direction': 'column', 'width': '30rem', 'margin-inline': 'auto'}}>
       <p style={{'text-align': 'center'}}>Open the Console to see the button outputs</p>
       {/* Normal button */}
-      <Button
-        onPress={alertAndLog}
-        onPressStart={() => console.warn("start")}
-        onPressEnd={() => console.warn("end")}
-      >
-        This is a Button
-      </Button>
+      <Button>This is a Button</Button>
 
       {/* Toggle button */}
-      <Button
-        onPress={() => console.log(isPressed() ? "On" : "Off")}
-        onPressChange={setPressed}
-        pressed={isPressed()}
+      <ToggleButton
+        onPress={() => console.log(isToggled() ? "On" : "Off")}
+        onPressChange={setToggled}
+        toggled={isToggled()}
       >
         This is a toggle button
-      </Button>
+      </ToggleButton>
 
       {/* Button as another element */}
-      <Button onPress={alertAndLog} as={"div"}>
+      <Button as={"div"}>
         This is a Button as a different element
       </Button>
 
       {/* Button that creates an aria warning */}
-      <Button onPress={alertAndLog} as={"div"}>
+      <Button as={"div"}>
         ₲
       </Button>
       {/* Button with fixed aria warning */}
       <Button
-        onPress={alertAndLog}
         as={"div"}
-        aria-label="Button with text that isn't accessible"
+        label="Button with text that isn't accessible"
       >
         ₲
       </Button>

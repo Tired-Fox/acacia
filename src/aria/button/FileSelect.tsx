@@ -1,6 +1,6 @@
 import { JSX } from "solid-js";
-import { PressProvider } from "../interaction/onPress";
-import { toArray } from "../util";
+import { PressProvider } from "../../interaction/usePress";
+import { toArray } from "../../util";
 
 type FileSelectProps = {
     ref?: HTMLInputElement,
@@ -36,7 +36,6 @@ export function FileSelect(props: FileSelectProps) {
             }}>
                 {props.children}
             </PressProvider>
-            {/* TODO: Swap with aria `input` component */}
             <input
                 ref={inputRef}
                 type="file"
