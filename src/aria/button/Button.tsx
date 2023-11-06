@@ -1,11 +1,11 @@
 import { splitProps, JSX, Accessor } from "solid-js";
 import { Dynamic } from "solid-js/web";
-import { PressHandlerKeys, useOnPress } from "../../interaction/usePress";
+import { PressHandlerKeys, createPress } from "../../interaction/createPress";
 import type {
   Interaction,
   PressHandlers,
   StripEventHandlers,
-} from "../../interaction/usePress";
+} from "../../interaction/createPress";
 import { acacia } from "../../util";
 
 // Pull in all props for a given tage type or default to button props.
@@ -29,7 +29,7 @@ export type ButtonProps = Omit<
  * TODO: Menu button with aria-haspopup to `menu` or `true`
  */
 export function Button(props: ButtonProps): JSX.Element {
-  let [data, events, rest, { isPressed }] = useButton(props);
+  let [data, events, rest, { isPressed }] = createButton(props);
 
   return data.as === "button" ? (
     <button
@@ -74,7 +74,7 @@ type UseProps = [
 /**
  * Extract and setup button props
  */
-export function useButton(props: ButtonProps): UseProps {
+export function createButton(props: ButtonProps): UseProps {
   if (props.disabled) {
     props["aria-disabled"] = "true";
   }
@@ -104,7 +104,7 @@ export function useButton(props: ButtonProps): UseProps {
     data.as = "button";
   }
 
-  let [events, { isPressed }] = useOnPress(handlers, {
+  let [events, { isPressed }] = createPress(handlers, {
     keys: data.as !== "button" ? [] : undefined,
   });
 

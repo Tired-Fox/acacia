@@ -25,33 +25,40 @@ have more general re-usable names like `useOnPress` and `useOnHover`.
   - [x] FileTrigger
   - [x] Toggle Button
 - Form
+  - [ ] Text Field
   - [x] Checkbox
   - [x] Checkbox Group
+  - [ ] Radio Button
+  - [ ] Radio Group
   - [ ] Switch
   - [ ] Slider
   - [ ] Slider (Multi-Thumb)
-  - [ ] Radio Button
-  - [ ] Radio Group
-  - [ ] Text Field
   - [?] Search Field
+- Pickers
+  - [ ] Combo Box
+  - [ ] Select
 - Collections
   - [ ] List Box
   - [ ] Grid (Interactive Tabular data and layout containers)
   - [ ] MenuBar + Menu
   - [ ] Table
   - [ ] Tag Group
-- Navigation
-  - [ ] Breadcrumb
-  - [ ] Link
-  - [ ] Tabs
 - Overlays
   - [ ] Dialog
   - [ ] Modal
   - [ ] Popover
   - [ ] Tooltip
-- Pickers
-  - [ ] Combo Box
-  - [ ] Select
+- Date and Time
+  - [ ] Calendar
+  - [ ] DateField
+  - [ ] DatePicker
+  - [ ] DateRangePicker
+  - [ ] RangeCalendar
+  - [ ] TimeField
+- Navigation
+  - [ ] Breadcrumb
+  - [ ] Link
+  - [ ] Tabs
 - Status
   - [ ] Meter
   - [ ] Progress Bar
@@ -64,13 +71,6 @@ have more general re-usable names like `useOnPress` and `useOnHover`.
   - [ ] Tree Grid
   - [ ] Feed
   - [ ] Window Splitter
-- Date and Time
-  - [ ] Calendar
-  - [ ] DateField
-  - [ ] DatePicker
-  - [ ] DateRangePicker
-  - [ ] RangeCalendar
-  - [ ] TimeField
 - Drag and Drop
   - [ ] DropZone
 

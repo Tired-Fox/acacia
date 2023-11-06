@@ -1,5 +1,5 @@
 import { JSX } from "solid-js";
-import { PressProvider } from "../../interaction/usePress";
+import { PressProvider } from "../../interaction/createPress";
 import { toArray } from "../../util";
 
 type FileSelectProps = {

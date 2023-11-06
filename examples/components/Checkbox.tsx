@@ -1,5 +1,6 @@
 import { createSignal } from "solid-js";
 import { Checkbox, CheckboxGroup } from "../../src/aria/form/Checkbox";
+import { Label } from "../../src/aria/Label";
 
 export function CCheckbox() {
   let [isSubscribed, setSubscribed] = createSignal(false);

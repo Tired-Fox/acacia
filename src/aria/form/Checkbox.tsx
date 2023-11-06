@@ -7,19 +7,21 @@ import {
   mergeProps,
   Accessor,
   Setter,
+  onMount,
 } from "solid-js";
 import {
-  useOnPress as usePress,
+  createPress as usePress,
   PressHandlerKeys,
   PressProvider,
-} from "../../interaction/usePress";
+} from "../../interaction/createPress";
 import type {
   Interaction,
   PressEvent,
   PressHandlers,
-} from "../../interaction/usePress";
+} from "../../interaction/createPress";
 import { Hidden } from "../../utility/HideAndReplace";
 import { createStore } from "solid-js/store";
+import { acacia } from "../../util";
 
 /*
    CONSTANTS
@@ -150,7 +152,7 @@ export function Checkbox(props: CheckboxProps) {
     events,
     { labelProps, inputProps },
     { checked, isPressed, isIndeterminate },
-  ] = useCheckbox(props, ref);
+  ] = createCheckbox(props, ref);
   let [onKeyDown, handlers] = splitProps(events, ["onKeyDown"]);
 
   return (
@@ -233,11 +235,13 @@ export function Checkbox(props: CheckboxProps) {
  * ```
  */
 export function CheckboxGroup(props: CheckboxGroupProps) {
+  let checkboxGroupRef: HTMLDivElement | undefined = undefined;
   const [contextProps, rest] = splitProps(props, ContextProps);
   const [values, setValues] = createStore<string[]>(contextProps.values ?? []);
 
   return (
     <div
+      ref={checkboxGroupRef}
       role="group"
       class={`acacia-checkbox-group ${rest.class}`}
       style={rest.style}
@@ -273,7 +277,7 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
  * Produces props for ownly data and state, event handlers, label props,
  * and input props respectively.
  */
-export function useCheckbox(
+export function createCheckbox(
   props: CheckboxProps,
   ref: HTMLInputElement | undefined
 ): UseProps {

@@ -1,5 +1,5 @@
 import { Button } from "../../src/aria/button/Button";
-import type { PressEvent } from "../../src/interaction/usePress";
+import type { PressEvent } from "../../src/interaction/createPress";
 import { For, createSignal } from "solid-js";
 import { FileSelect } from "../../src/aria/button/FileSelect";
 import { ToggleButton } from "../../src/aria/button/ToggleButton";

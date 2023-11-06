@@ -148,13 +148,13 @@ export type PressHandlers = Omit<
 > & { onPressChange?: (isPressed: boolean) => void };
 export type RequiredPressHandlers = { [P in keyof PressHandlers]-?: PressHandlers[P] };
 
-export const useOnPress = (
+export function createPress(
   handlers: PressHandlers,
   options?: {
     keys?: string[];
     disabled?: boolean;
   }
-): Events => {
+): Events {
   const [isPressed, setPressed] = createSignal(false);
   const [pressState, setPressState] = createStore<{
     buttons: number[];

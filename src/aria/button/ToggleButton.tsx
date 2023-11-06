@@ -1,9 +1,9 @@
-import { PressEvent } from "../../interaction/usePress";
-import { ButtonProps, useButton } from "./Button";
+import { PressEvent } from "../../interaction/createPress";
+import { ButtonProps, createButton } from "./Button";
 import { Accessor, Setter, createSignal, JSX, splitProps } from "solid-js";
 import { Dynamic } from "solid-js/web";
 
-import type { Interaction, PressHandlers } from "../../interaction/usePress";
+import type { Interaction, PressHandlers } from "../../interaction/createPress";
 
 type ToggleButtonProps = ButtonProps & { toggled?: boolean };
 type UseProps = [
@@ -19,7 +19,7 @@ type UseProps = [
 
 export function ToggleButton(props: ToggleButtonProps): JSX.Element {
   const [data, events, buttonProps, { isPressed, isToggled }] =
-    useToggleButton(props);
+    createToggleButton(props);
 
   return data.as === "button" ? (
     <button
@@ -49,7 +49,7 @@ export function ToggleButton(props: ToggleButtonProps): JSX.Element {
   );
 }
 
-export function useToggleButton(props: ToggleButtonProps): UseProps {
+export function createToggleButton(props: ToggleButtonProps): UseProps {
   const [toggledProps, buttonProps] = splitProps(props, ["toggled"]);
   const [isToggled, setToggled] = createSignal(toggledProps.toggled ?? false);
 
@@ -59,7 +59,7 @@ export function useToggleButton(props: ToggleButtonProps): UseProps {
     onPress?.(e);
   };
 
-  let [data, events, rest, { isPressed }] = useButton(buttonProps);
+  let [data, events, rest, { isPressed }] = createButton(buttonProps);
 
   return [
     data,
