@@ -1,0 +1,22 @@
+.acacia-button {
+    background-color: rgb(var(--acacia));
+    width: fit-content;
+    padding: .5rem 1rem;
+    border-radius: .25rem;
+    box-shadow: rgba(0, 0, 0, 0.26) 0px 1px 4px;
+    border: none;
+    font-size: 12px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.acacia-button[data-toggled] {
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px 0px inset;
+}
+
+.acacia-button[data-pressed] {
+    box-shadow: none;
+}
+
+.acacia-button[data-disabled] {
+    background-color: rgb(var(--gray), .4);
+}

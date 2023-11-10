@@ -1,0 +1,35 @@
+import { Meta, Story, Canvas } from '@storybook/blocks';
+
+import * as ButtonStories from './Button.stories';
+
+<Meta of={ButtonStories} />
+
+## Button
+
+A button is usually a component used to submit forms and toggle elements on the page. Buttons can be either a `button` element itself or any other element with the role of `button`.
+
+### Normal
+
+<Canvas of={ButtonStories.Normal} />
+
+### Using Different Element
+<Canvas of={ButtonStories.DifferentTag} />
+
+### Symbols
+
+Using symbols or non-accessible text inside the button will require that the `label` prop is provided. This is to meet
+aria requirements with the button needed some form of accessible label/text.
+
+<Canvas of={ButtonStories.Symbol} />
+
+### Disabled
+
+<Canvas of={ButtonStories.Disabled} />
+
+___
+
+## Available data attributes
+| Name     | Description                 | Value  |
+| :------- | :-------------------------- | :----- |
+| pressed  | Is the button being pressed | `bool` |
+| disabled | Is the button disabled      | `bool` |

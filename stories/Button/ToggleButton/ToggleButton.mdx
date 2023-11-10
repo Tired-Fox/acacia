@@ -1,0 +1,36 @@
+import { Meta, Story, Canvas } from '@storybook/blocks';
+import * as ToggleButtonStories from './ToggleButton.stories';
+
+<Meta of={ToggleButtonStories} />
+
+## Toggle Button
+
+A toggle button has the same features as the normal button with addition to a toggled state. This is mostly represented
+with `aria-pressed` being set to `true` or `false` if the button is toggled or not.
+
+### Normal
+
+<Canvas of={ToggleButtonStories.Normal} />
+
+### Using Different Element
+<Canvas of={ToggleButtonStories.DifferentTag} />
+
+### Symbols
+
+Using symbols or non-accessible text inside the button will require that the `label` prop is provided. This is to meet
+aria requirements with the button needed some form of accessible label/text.
+
+<Canvas of={ToggleButtonStories.Symbol} />
+
+### Disabled
+
+<Canvas of={ToggleButtonStories.Disabled} />
+
+___
+
+## Available data attributes
+| Name     | Description                 | Value  |
+| :------- | :-------------------------- | :----- |
+| pressed  | Is the button being pressed | `bool` |
+| toggled  | Is the button toggled       | `bool` |
+| disabled | Is the button disabled      | `bool` |
