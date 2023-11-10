@@ -77,7 +77,6 @@
     "solid-js": "^1.8.4"
   },
   "dependencies": {
-    "@solid-primitives/props": "^3.1.8",
     "@solid-primitives/utils": "^6.2.1",
     "typescript": "^5.2.2"
   }

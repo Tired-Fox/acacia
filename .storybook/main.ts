@@ -3,6 +3,7 @@ import remarkGfm from "remark-gfm";
 
 const config: StorybookConfig = {
   stories: [
+    "../stories/Overview.mdx", // Default / Home page
     "../stories/**/*.mdx",
     "../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)",
   ],

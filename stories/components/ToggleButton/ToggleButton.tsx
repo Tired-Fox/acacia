@@ -5,8 +5,8 @@ import {
 import { JSX } from "solid-js";
 import { Dynamic } from "solid-js/web";
 
-import "../button.css";
-import '../../colors.css';
+import "../../styles/button.css";
+import '../../styles/colors.css';
 
 export function ToggleButton(props: ToggleButtonProps): JSX.Element {
   const { toggleButtonProps } = createToggleButton(props);
