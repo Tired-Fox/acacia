@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "storybook": "storybook dev -p 6006",
+    "storybook:watch": "concurrently --kill-others \"storybook\" \"storybook:test:watch\"",
     "storybook:build": "storybook build",
     "storybook:test": "test-storybook",
     "storybook:test:watch": "test-storybook --watch",
@@ -50,6 +51,7 @@
     "@typescript-eslint/parser": "^6.10.0",
     "axe-playwright": "^1.2.3",
     "babel-preset-solid": "^1.8.4",
+    "concurrently": "^8.2.2",
     "eslint": "^8.13.0",
     "eslint-config-semistandard": "^17.0.0",
     "eslint-config-standard": "^17.0.0",
